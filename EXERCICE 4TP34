@@ -1,0 +1,98 @@
+import java.util.Vector;
+
+class Figure {
+    protected int abscisse;
+    protected int ordonnee;
+    protected int couleur;
+    private static Vector<Figure> instances = new Vector<>();
+
+    public Figure(int abscisse, int ordonnee, int couleur) {
+        this.abscisse = abscisse;
+        this.ordonnee = ordonnee;
+        this.couleur = couleur;
+        instances.add(this);
+    }
+
+    public static Vector<Figure> getInstances() {
+        return new Vector<>(instances);
+    }
+
+    @Override
+    public String toString() {
+        return "Figure [Abscisse: " + abscisse + ", Ordonnée: " + ordonnee + ", Couleur: " + couleur + "]";
+    }
+}
+
+class Carre extends Figure {
+    private int cote;
+
+    public Carre(int abscisse, int ordonnee, int couleur, int cote) {
+        super(abscisse, ordonnee, couleur);
+        this.cote = cote;
+    }
+
+    public static Vector<Carre> getInstances() {
+        Vector<Carre> carres = new Vector<>();
+        for (Figure figure : Figure.getInstances()) {
+            if (figure instanceof Carre) {
+                carres.add((Carre) figure);
+            }
+        }
+        return carres;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", Carré [Côté: " + cote + "]";
+    }
+}
+
+class Rectangle extends Figure {
+    private int longueur;
+    private int largeur;
+
+    public Rectangle(int abscisse, int ordonnee, int couleur, int longueur, int largeur) {
+        super(abscisse, ordonnee, couleur);
+        this.longueur = longueur;
+        this.largeur = largeur;
+    }
+
+    public static Vector<Rectangle> getInstances() {
+        Vector<Rectangle> rectangles = new Vector<>();
+        for (Figure figure : Figure.getInstances()) {
+            if (figure instanceof Rectangle) {
+                rectangles.add((Rectangle) figure);
+            }
+        }
+        return rectangles;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", Rectangle [Longueur: " + longueur + ", Largeur: " + largeur + "]";
+    }
+}
+
+public class TestFigures {
+    public static void main(String[] args) {
+        new Carre(0, 0, 1, 5);
+        new Carre(2, 3, 2, 10);
+        new Rectangle(1, 1, 3, 4, 7);
+        new Rectangle(3, 5, 4, 6, 8);
+
+        System.out.println("Toutes les figures:");
+        for (Figure figure : Figure.getInstances()) {
+            System.out.println(figure);
+        }
+
+        System.out.println("\nTous les carrés:");
+        for (Carre carre : Carre.getInstances()) {
+            System.out.println(carre);
+        }
+
+        System.out.println("\nTous les rectangles:");
+        for (Rectangle rectangle : Rectangle.getInstances()) {
+            System.out.println(rectangle);
+        }
+    }
+}
