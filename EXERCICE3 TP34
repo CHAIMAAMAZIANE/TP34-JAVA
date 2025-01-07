@@ -1,0 +1,103 @@
+import java.util.ArrayList;
+
+class Document {
+    public int numero;
+    public String titre;
+
+    public Document(int numero, String titre) {
+        this.numero = numero;
+        this.titre = titre;
+    }
+
+    public String getAuteur() {
+        return null;
+    }
+
+    public String toString() {
+        return "Document [Numéro: " + numero + ", Titre: " + titre + "]";
+    }
+}
+
+class Livre extends Document {
+    private String auteur;
+    private int nombreDePages;
+
+    public Livre(int numero, String titre, String auteur, int nombreDePages) {
+        super(numero, titre);
+        this.auteur = auteur;
+        this.nombreDePages = nombreDePages;
+    }
+
+    @Override
+    public String getAuteur() {
+        return auteur;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", Auteur: " + auteur + ", Nombre de pages: " + nombreDePages;
+    }
+}
+
+class Dictionnaire extends Document {
+    private String langue;
+    private int nombreDeTomes;
+
+    public Dictionnaire(int numero, String titre, String langue, int nombreDeTomes) {
+        super(numero, titre);
+        this.langue = langue;
+        this.nombreDeTomes = nombreDeTomes;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", Langue: " + langue + ", Nombre de tomes: " + nombreDeTomes;
+    }
+}
+
+class ListeDeDocuments {
+    private ArrayList<Document> documents;
+
+    public ListeDeDocuments() {
+        documents = new ArrayList<>();
+    }
+
+    public void ajouterDocument(Document document) {
+        documents.add(document);
+    }
+
+    public void tousLesAuteurs() {
+        for (Document doc : documents) {
+            String auteur = doc.getAuteur();
+            if (auteur != null) {
+                System.out.println("Numéro: " + doc.numero + ", Auteur: " + auteur);
+            }
+        }
+    }
+
+    public void tousLesDocuments() {
+        for (Document doc : documents) {
+            System.out.println(doc.toString());
+        }
+    }
+}
+
+public class Bibliotheque {
+    public static void main(String[] args) {
+        ListeDeDocuments liste = new ListeDeDocuments();
+
+        Livre livre1 = new Livre(1, "Le Petit Prince", "Antoine de Saint-Exupéry", 96);
+        Livre livre2 = new Livre(2, "1984", "George Orwell", 328);
+        Dictionnaire dictionnaire1 = new Dictionnaire(3, "Le Petit Robert", "Français", 3);
+
+        liste.ajouterDocument(livre1);
+        liste.ajouterDocument(livre2);
+        liste.ajouterDocument(dictionnaire1);
+
+        System.out.println("Liste des auteurs des livres :");
+        liste.tousLesAuteurs();
+
+        System.out.println("\nListe de tous les documents :");
+        liste.tousLesDocuments();
+    }
+}
